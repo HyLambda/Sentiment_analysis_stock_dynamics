@@ -1,3 +1,14 @@
 gwwgw
 import pandas as pd 
+from bs4 import BeautifulSoup
+import requests
 
+# Replace 'your url_here' with the actual URL you want to scrape
+
+url = 'your url_here'
+r = requests.get(url)
+soup = BeautifulSoup(r.content, 'html.parser')
+
+#Extract text from articles 
+
+article_text = ''. join(map(lambda p: p.text, soup.find_all('p')))
