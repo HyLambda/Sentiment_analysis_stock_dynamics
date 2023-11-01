@@ -12,3 +12,41 @@ soup = BeautifulSoup(r.content, 'html.parser')
 #Extract text from articles 
 
 article_text = ''. join(map(lambda p: p.text, soup.find_all('p')))
+%%%%%%%%%%%%%%%%
+import nltk
+nltk.download('vader_lexicon')
+import requests
+from bs4 import BeautifulSoup
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+
+# Define the URL of the article on Yahoo.com
+url = "https://www.yahoo.com/news/hezbollah-hesitates-israel-strikes-gaza-171550689.html"
+
+# Send a GET request to the URL
+response = requests.get(url)
+
+# Check if the request was successful
+if response.status_code == 200:
+    # Parse the page content using BeautifulSoup
+    soup = BeautifulSoup(response.content, "html.parser")
+
+    # Find the article content based on the specific HTML tags
+    article_content = soup.find('div', class_='caas-body').find_all('p')
+
+    # Extract the text from the article content
+    extracted_text = ""
+    for paragraph in article_content:
+        extracted_text += paragraph.get_text() + " "
+
+    # Initialize the VADER sentiment analyzer
+    sia = SentimentIntensityAnalyzer()
+
+    # Analyze sentiment of the extracted text
+    sentiment_scores = sia.polarity_scores(extracted_text)
+
+    # Print the sentiment scores
+    for sentiment, score in sentiment_scores.items():
+        print(f"{sentiment}: {score}")
+
+else:
+    print(f"Failed to retrieve the article. Status code: {response.status_code}")
