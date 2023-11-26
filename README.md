@@ -1,3 +1,55 @@
 # Stocks-price-prediction-using-ML
 
-In this project, we aim to develop a model capable of predicting the closing price movements for hundreds of Nasdaq listed stocks using current market sentiment and data from the order book and the closing auction of the stock. Information from the auction can be used to adjust prices, assess supply and demand dynamics, and identify trading opportunities. Our model can contribute to the consolidation of signals from the auction and order book, leading to improved market efficiency and accessibility, particularly during the intense final ten minutes of trading. 
+PredictingStockVolatilityusingSentimentAnalysisofDailyNewsArticles
+Abstract:
+Financialmarketsarecomplexecosystemsinfluencedbyamyriadoffactors.This
+projectaimstoharnessthepowerofsentimentanalysisfromdailynewsarticlesto
+predictthestockvolatilityofpubliclytradedcompanies.Byleveragingnaturallanguage
+processingtechniquesandestablishedtime-seriesmodels,weintendtocreatearobust
+frameworkforforecastingdailystockvolatility.
+Objectives:
+  DataCollection:
+● Extractdailynewsarticlesrelatedtopubliclytradedcompaniesfrom
+reputablesources.
+● Implementwebscrapingtoolstogathersentimentscoresbasedonarticle
+content.
+  SentimentAnalysis:
+● Utilizestate-of-the-artsentimentanalysistoolssuchasVADERtoquantify
+thesentimentofeacharticle.
+● Aggregatedailysentimentscoresforeachcompanytocreatea
+comprehensivesentimenttimeseries.
+  FeatureEngineering:
+● Integratesentimentscoresasfeaturesalongwithotherrelevantfinancial
+indicators(e.gstockopen/closepriceandtradedvolumes).
+● Explorethecorrelationbetweensentimentscoresandsubsequentstock
+volatility.
+  Modeling:
+● Applylinearregressionmodelstounderstandtherelationshipbetween
+sentimentscoresandstockvolatility.
+● ImplementARIMAmodelstocapturetime-dependentpatternsinvolatility
+andforecastfuturevolatility.
+  ValidationandOptimization:
+● Employcross-validationtechniquestovalidatetheaccuracyofthe
+models.
+● Fine-tunemodelparameterstooptimizepredictiveperformance.
+ExpectedOutcomes:
+● Developapredictivemodelcapableofforecastingdailystockvolatilitybasedon
+sentimentscores.
+● Gaininsightsintotheimpactofnewssentimentonshort-termstockprice
+movements.
+● Createauser-friendlyinterfacefordailyvolatilitypredictions.
+Significance:
+Thisprojectoffersanovelapproachtostockmarketforecastingbyintegrating
+sentimentanalysisintotraditionalquantitativemodels.Understandingtheroleofnews
+sentimentinstockvolatilityprovidesvaluableinsightsforinvestors,traders,and
+financialanalysts.
+FutureWork:
+● Exploretheuseofmachinelearningalgorithmstoenhancepredictionaccuracy.
+● Investigatetheinfluenceofmacroeconomicindicatorsontherelationship
+betweensentimentandstockvolatility.
+Conclusion:
+Theproposedprojectmergescutting-edgesentimentanalysistechniqueswith
+establishedtime-seriesmodelstopredictstockvolatility.Byexploringtheintricate
+interplaybetweennewssentimentandmarketdynamics,thisprojectaimstocontribute
+totheevolvinglandscapeoffinancialforecasting,providingstakeholderswithamore
+nuancedunderstandingofdailystockbehavior
