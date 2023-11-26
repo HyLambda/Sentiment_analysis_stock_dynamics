@@ -8,18 +8,27 @@ predict the stock volatility of publicly traded companies. By leveraging natural
 Objectives:
 
 Data Collection:
+
 ●	Extract daily news articles related to publicly traded companies from reputable sources.
 ●	Implement web scraping tools to gather sentiment scores based on article content.
+
 Sentiment Analysis:
+
 ●	Utilize state-of-the-art sentiment analysis tools such as VADER to quantify the sentiment of each article.
 ●	Aggregate daily sentiment scores for each company to create a comprehensive sentiment time series.
+
 Feature Engineering:
+
 ●	Integrate sentiment scores as features along with other relevant financial indicators (e.g stock open/close price and traded volumes).
 ●	Explore the correlation between sentiment scores and subsequent stock volatility.
+
 Modeling:
+
 ●	Apply linear regression models to understand the relationship between sentiment scores and stock volatility.
 ●	Implement ARIMA models to capture time-dependent patterns in volatility and forecast future volatility.
+
 Validation and Optimization:
+
 ●	Employ cross-validation techniques to validate the accuracy of the models.
 ●	Fine-tune model parameters to optimize predictive performance.
 
