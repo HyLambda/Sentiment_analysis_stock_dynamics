@@ -1,4 +1,7 @@
-Predicting Stock Volatility using Sentiment Analysis of Daily News Articles Abstract:
+Predicting Stock Volatility using Sentiment Analysis of Daily News Articles 
+
+Abstract:
+
 Financial markets are complex ecosystems influenced by a myriad of factors. This project aims to harness the power of sentiment analysis from daily news articles to
 predict the stock volatility of publicly traded companies. By leveraging natural language processing techniques and established time-series models, we intend to create a robust framework for forecasting daily stock volatility.
 
@@ -40,4 +43,3 @@ Future Work:
 Conclusion:
 
 The proposed project merges cutting-edge sentiment analysis techniques with established time-series models to predict stock volatility. By exploring the intricate interplay between news sentiment and market dynamics, this project aims to contribute to the evolving landscape of financial forecasting, providing stakeholders with a more nuanced understanding of daily stock behavior.
-![image](https://github.com/supriyouva/Stocks-prediction-using-ML/assets/111470450/7a4a5705-4458-4b9f-9f57-01e175d50db9)
