@@ -1,4 +1,4 @@
-Predicting Stock Volatility using Sentiment Analysis of Daily News Articles 
+**Predicting Stock Volatility using Sentiment Analysis of Daily News Articles** 
 
 Abstract:
 
@@ -9,34 +9,33 @@ Objectives:
 
 Data Collection:
 
-●	Extract daily news articles related to publicly traded companies from reputable sources.
+●	Extract daily news articles related to publicly traded companies from reputable sources.             
 ●	Implement web scraping tools to gather sentiment scores based on article content.
 
 Sentiment Analysis:
 
-●	Utilize state-of-the-art sentiment analysis tools such as VADER to quantify the sentiment of each article.
+●	Utilize state-of-the-art sentiment analysis tools such as VADER to quantify the sentiment of each article.             
 ●	Aggregate daily sentiment scores for each company to create a comprehensive sentiment time series.
 
 Feature Engineering:
 
-●	Integrate sentiment scores as features along with other relevant financial indicators (e.g stock open/close price and traded volumes).
+●	Integrate sentiment scores as features along with other relevant financial indicators (e.g stock open/close price and traded volumes).             
 ●	Explore the correlation between sentiment scores and subsequent stock volatility.
 
 Modeling:
 
-●	Apply linear regression models to understand the relationship between sentiment scores and stock volatility.
+●	Apply linear regression models to understand the relationship between sentiment scores and stock volatility.             
 ●	Implement ARIMA models to capture time-dependent patterns in volatility and forecast future volatility.
 
 Validation and Optimization:
 
-●	Employ cross-validation techniques to validate the accuracy of the models.
+●	Employ cross-validation techniques to validate the accuracy of the models.             
 ●	Fine-tune model parameters to optimize predictive performance.
 
 Expected Outcomes:
 
-●	Develop a predictive model capable of forecasting daily stock volatility based on sentiment scores.
- 
-●	Gain insights into the impact of news sentiment on short-term stock price movements.
+●	Develop a predictive model capable of forecasting daily stock volatility based on sentiment scores.            
+●	Gain insights into the impact of news sentiment on short-term stock price movements.             
 ●	Create a user-friendly interface for daily volatility predictions.
 
 Significance:
@@ -46,7 +45,7 @@ sentiment analysis into traditional quantitative models. Understanding the role 
 
 Future Work:
 
-●	Explore the use of machine learning algorithms to enhance prediction accuracy.
+●	Explore the use of machine learning algorithms to enhance prediction accuracy.             
 ●	Investigate the influence of macroeconomic indicators on the relationship between sentiment and stock volatility.
 
 Conclusion:
