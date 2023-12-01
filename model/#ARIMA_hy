@@ -1,0 +1,47 @@
+#ARIMA_hy
+
+pip install --upgrade pip
+!pip install statsmodels
+import pandas as pd
+import ssl
+from urllib.request import urlopen
+
+ssl._create_default_https_context = ssl._create_unverified_context
+
+url = 'https://raw.githubusercontent.com/supriyouva/Stocks-prediction-using-ML/main/data/train.csv'
+df = pd.read_csv(url, parse_dates=['date'], index_col='date')
+import numpy as np
+from statsmodels.tsa.arima.model import ARIMA
+import matplotlib.pyplot as plt
+from sklearn.metrics import mean_squared_error
+
+# Load the dataset from Supriyo's GitHub 
+url = 'https://raw.githubusercontent.com/supriyouva/Stocks-prediction-using-ML/main/data/train.csv'
+df = pd.read_csv(url, parse_dates=['date'], index_col='date')
+
+
+symbol = 'AAPL' 
+
+stock_data = df[df['stock'] == symbol]
+ts = stock_data['volume']
+
+train_size = int(len(ts) * 0.8)
+train, test = ts[:train_size], ts[train_size:]
+
+# Train the ARIMA model
+model = ARIMA(train, order=(5, 1, 0))  # Adjust the order as needed
+model_fit = model.fit()
+
+# Make predictions on the testing set
+predictions = model_fit.predict(start=len(train), end=len(train) + len(test) - 1, typ='levels')
+
+mse = mean_squared_error(test, predictions)
+print(f'Mean Squared Error: {mse}')
+
+plt.plot(test.index, test, label='Actual')
+plt.plot(test.index, predictions, color='red', label='Predicted')
+plt.xlabel('Date')
+plt.ylabel('Volume')
+plt.title(f'ARIMA Model Prediction for {symbol}')
+plt.legend()
+plt.show()
