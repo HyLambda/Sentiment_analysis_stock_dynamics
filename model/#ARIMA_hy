@@ -45,3 +45,53 @@ plt.ylabel('Volume')
 plt.title(f'ARIMA Model Prediction for {symbol}')
 plt.legend()
 plt.show()
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% RSME 
+import pandas as pd
+from statsmodels.tsa.arima.model import ARIMA
+from sklearn.metrics import mean_squared_error
+import numpy as np
+import matplotlib.pyplot as plt
+url = 'https://raw.githubusercontent.com/supriyouva/Stocks-prediction-using-ML/main/data/interpolated_final_data.csv'
+df = pd.read_csv(url, parse_dates=['date'], index_col='date')
+
+symbol = ''
+
+stock_data = df[df['stock'] == symbol]
+
+start_date = '2023-10-01'
+end_date_train = '2023-10-26'
+end_date_test = '2023-10-31'
+
+df_stock_train = df[(df['stock'] == symbol) & (df.index >= start_date) & (df.index <= end_date_train)]
+df_stock_test = df[(df['stock'] == symbol) & (df.index > end_date_train) & (df.index <= end_date_test)]
+if not df_stock_test.empty:
+    features_volume = ['neg', 'pos', 'compound']
+    features_price = ['neg', 'pos', 'compound']
+    features_high_low = ['neg', 'pos', 'compound']
+    
+    order_volume = (5, 1, 0)
+    order_price = (5, 1, 0)
+    order_high_low = (5, 1, 0)
+
+    model_volume = ARIMA(df_stock_train['volume'], order=order_volume)
+    fit_model_volume = model_volume.fit()
+    predictions_volume = fit_model_volume.predict(start=df_stock_test.index[0], end=df_stock_test.index[-1], typ='levels')
+
+    rmse_volume = np.sqrt(mean_squared_error(df_stock_test['volume'], predictions_volume))
+    print(f'RMSE for Volume: {rmse_volume}')
+    model_price = ARIMA(df_stock_train['close'], order=order_price)
+    fit_model_price = model_price.fit()
+    predictions_price = fit_model_price.predict(start=df_stock_test.index[0], end=df_stock_test.index[-1], typ='levels')
+    rmse_price = np.sqrt(mean_squared_error(df_stock_test['close'], predictions_price))
+    print(f'RMSE for Close Price: {rmse_price}')
+
+    model_high_low = ARIMA(df_stock_train['high'], order=order_high_low)
+    fit_model_high_low = model_high_low.fit()
+    predictions_high_low = fit_model_high_low.predict(start=df_stock_test.index[0], end=df_stock_test.index[-1],
+                                                      typ='levels')
+    rmse_high_low = np.sqrt(mean_squared_error(df_stock_test['high'], predictions_high_low))
+    print(f'RMSE for High/Low Price: {rmse_high_low}')
