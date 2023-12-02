@@ -18,14 +18,13 @@ df_stock_train = df[(df['stock'] == symbol) & (df.index >= start_date) & (df.ind
 df_stock_test = df[(df['stock'] == symbol) & (df.index > end_date_train) & (df.index <= end_date_test)]
 
 if not df_stock_test.empty:
-    # Define features
-    features_volume = ['neg', 'pos', 'compound']
     
-    # Order for SARIMAX
-    order_sarimax_volume = (1, 1, 1)
+ features_volume = ['neg', 'pos', 'compound']
     
-    # Fit the SARIMAX model for volume
-    exogenous_train_volume = df_stock_train[features_volume]
+    
+ order_sarimax_volume = (1, 1, 1)
+    
+ exogenous_train_volume = df_stock_train[features_volume]
     model_sarimax_volume = SARIMAX(df_stock_train['volume'], exog=exogenous_train_volume, order=(1, 1, 1))
     fit_model_sarimax_volume = model_sarimax_volume.fit()
 
