@@ -1,13 +1,14 @@
+import pandas as pd
 from statsmodels.tsa.statespace.sarimax import SARIMAX
-from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error
+import numpy as np
+import matplotlib.pyplot as plt
 
 url = 'https://raw.githubusercontent.com/supriyouva/Stocks-prediction-using-ML/main/data/interpolated_final_data.csv'
 df = pd.read_csv(url, parse_dates=['date'], index_col='date')
+symbol = ''
 
-
-symbol = 'AMZN'
 stock_data = df[df['stock'] == symbol]
-ts_volume = stock_data['volume']
 
 start_date = '2023-10-01'
 end_date_train = '2023-10-26'
@@ -17,28 +18,80 @@ df_stock_train = df[(df['stock'] == symbol) & (df.index >= start_date) & (df.ind
 df_stock_test = df[(df['stock'] == symbol) & (df.index > end_date_train) & (df.index <= end_date_test)]
 
 if not df_stock_test.empty:
+    # Define features
     features_volume = ['neg', 'pos', 'compound']
-    ts_volume = ts_volume.align(df_stock_train[features_volume], join='inner')[0]
-
-    order_volume = (5, 1, 0)
-    seasonal_order_volume = (1, 0, 1, 24)  
-    exog_volume = df_stock_train[features_volume]
-
-    model_volume = SARIMAX(ts_volume, order=order_volume, seasonal_order=seasonal_order_volume, exog=exog_volume)
-    fit_model_volume = model_volume.fit()
-
-    exogenous_test_volume = df_stock_test[features_volume]
-    predictions_volume = fit_model_volume.predict(start=df_stock_test.index[0], end=df_stock_test.index[-1],
-                                                 exog=exogenous_test_volume)
-
-
     
+    # Order for SARIMAX
+    order_sarimax_volume = (1, 1, 1)
+    
+    # Fit the SARIMAX model for volume
+    exogenous_train_volume = df_stock_train[features_volume]
+    model_sarimax_volume = SARIMAX(df_stock_train['volume'], exog=exogenous_train_volume, order=(1, 1, 1))
+    fit_model_sarimax_volume = model_sarimax_volume.fit()
+
+#VOLUME PREDICTIONS
+    exogenous_test_volume = df_stock_test[features_volume]
+    predictions_volume = fit_model_sarimax_volume.predict(start=df_stock_test.index[0], end=df_stock_test.index[-1],
+                                                          exog=exogenous_test_volume)
+
+rmse_volume = np.sqrt(mean_squared_error(df_stock_test['volume'], predictions_volume))
+print(f'RMSE for Volume: {rmse_volume}')
+
+#CLOSE PRICE PREDICTION 
+
+features_price = ['neg', 'pos', 'compound']
+order_sarimax_price = (1, 1, 1)
+
+   exogenous_train_price = df_stock_train[features_price]
+model_sarimax_price = SARIMAX(df_stock_train['open'], exog=exogenous_train_price, order=order_sarimax_price)
+    fit_model_sarimax_price = model_sarimax_price.fit()
+
+    exogenous_test_price = df_stock_test[features_price]
+ predictions_price = fit_model_sarimax_price.predict(start=df_stock_test.index[0], end=df_stock_test.index[-1],
+                                                        exog=exogenous_test_price)
+
+   rmse_price = np.sqrt(mean_squared_error(df_stock_test['open'], predictions_price))
+print(f'RMSE for Open Price: {rmse_price}')
+
+#HIGH PRICE PREDICTION
+
+    features_high = ['neg', 'pos', 'compound']
+    order_sarimax_high = (1, 1, 1)
+
+    exogenous_train_high = df_stock_train[features_high]
+model_sarimax_high = SARIMAX(df_stock_train['high'], exog=exogenous_train_high, order=order_sarimax_high)
+fit_model_sarimax_high = model_sarimax_high.fit()
+
+    exogenous_test_high = df_stock_test[features_high]
+predictions_high = fit_model_sarimax_high.predict(start=df_stock_test.index[0], end=df_stock_test.index[-1],
+                                                      exog=exogenous_test_high)
+
+    rmse_high = np.sqrt(mean_squared_error(df_stock_test['high'], predictions_high))
+print(f'RMSE for High Price: {rmse_high}')
+
+plt.figure(figsize=(12, 6))
+plt.plot(ts_volume, label='Actual Volume (Train)')
+plt.plot(df_stock_test['volume'], label='Actual Volume (Test)', linestyle='--')
+ plt.plot(predictions_volume, label='Predicted Volume (Test)')
+plt.title('Volume Traded Forecast')
+ plt.legend()
+plt.show()
+
+plt.figure(figsize=(12, 6))
+plt.plot(ts_price, label='Actual Close Price (Train)')
+plt.plot(df_stock_test['price'], label='Actual Close Price (Test)', linestyle='--')
+ plt.plot(predictions_price, label='Predicted Close Price (Test)')
+plt.title('Close Price Forecast')
+ plt.legend()
+plt.show()
 
 
-    plt.figure(figsize=(12, 6))
-    plt.plot(ts_volume, label='Actual Volume (Train)')
-    plt.plot(df_stock_test['volume'], label='Actual Volume (Test)', linestyle='--')
-    plt.plot(predictions_volume, label='Predicted Volume (Test)')
-    plt.title('Volume Traded Forecast')
-    plt.legend()
-    plt.show()
+plt.figure(figsize=(12, 6))
+plt.plot(ts_high, label='Actual High Price (Train)')
+plt.plot(df_stock_test['high'], label='Actual High Price (Test)', linestyle='--')
+ plt.plot(predictions_high, label='Predicted High Price (Test)')
+plt.title('High Price Forecast')
+ plt.legend()
+plt.show()
+
+
